@@ -1,0 +1,101 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "schemaVersion": 39,
+  "title": "Industrial Energy Monitoring",
+  "version": 1,
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Power Consumption (kW)",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT time AS \"time\", power_kw FROM energy_readings WHERE $__timeFilter(time) ORDER BY time",
+          "format": "time_series"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatt"
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Temperature (\u00b0C)",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT time AS \"time\", temperature_c FROM energy_readings WHERE $__timeFilter(time) ORDER BY time",
+          "format": "time_series"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius"
+        }
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Peak Power",
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 8
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT max(power_kw) AS peak_power_kw FROM energy_readings WHERE $__timeFilter(time)",
+          "format": "table"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Average Power",
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 6,
+        "y": 8
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT avg(power_kw) AS avg_power_kw FROM energy_readings WHERE $__timeFilter(time)",
+          "format": "table"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Current (A)",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT time AS \"time\", current_a FROM energy_readings WHERE $__timeFilter(time) ORDER BY time",
+          "format": "time_series"
+        }
+      ]
+    }
+  ]
+}
